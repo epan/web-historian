@@ -15,7 +15,7 @@ archive.initialize({
 
 var request = supertest.agent(server);
 
-describe('server', function() {
+xdescribe('server', function() {
   describe('GET /', function () {
     it('should return the content of index.html', function (done) {
       // just assume that if it contains an <input> tag its index.html
@@ -25,7 +25,7 @@ describe('server', function() {
     });
   });
 
-  describe('archived websites', function () {
+  xdescribe('archived websites', function () {
     describe('GET', function () {
       it('should return the content of a website from the archive', function (done) {
         var fixtureName = 'www.google.com';
@@ -155,4 +155,3 @@ describe('archive helpers', function() {
     });
   });
 });
-
