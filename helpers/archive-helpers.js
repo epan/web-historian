@@ -33,8 +33,17 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
-  // search path.list for url
-  // if it is, callback(url)???
+  // var urls;
+  fs.readFile(this.paths.list, function (err, data) {
+    var urls = data.toString().split('\n');
+    return callback(urls.includes(url));
+  })
+
+  // get array of urls (like readListOfUrls can)
+  // if 'url' is in array
+    // return true
+  // else
+    // return false
 };
 
 exports.addUrlToList = function(url, callback) {
