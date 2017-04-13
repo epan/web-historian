@@ -32,17 +32,13 @@ exports.handleRequest = function (req, res) {
     console.log('entering the GET FUNCTION ==== ', req.url);
     fs.readFile(`${archive.paths.archivedSites}${req.url}`, 'utf8', (err, data) => {
       if (err) {
-        // console.log('HELLO FROM ERR condition')
-        // console.log(`${archive.paths.archivedSites}${req.url}`)
         res.writeHead(404, 'Not Found', {'Content-type': 'text/plain'});
         res.end(`Could not find: ${archive.paths.archivedSites}${req.url}`);
       } else {
-        // console.log(`HELLO FROM THE ELSE SIDE: ${archive.paths.archivedSites}${req.url}`)
         res.writeHead(200);
         res.end(data);
       }
     });
-    // httpHelpers.serveAssets(res, `${archive.paths.archivedSites}${req.url}`);
 
   } else {
     res.writeHead(404, 'Not Found', {'Content-type': 'text/plain'});
