@@ -14,11 +14,16 @@ exports.handleRequest = function (req, res) {
     }
 
     if (req.method === 'POST') {
-      // TODO respond to POST
-      console.log(req.data);
-      archive.addUrlToList(req.send.url, () => {
-        res.writeHead(302, httpHelpers.headers);
-        res.end(data);
+      var body = '';
+      req.on('data', (chunk) => {
+        body += chunk;
+      })
+      .on('end', () => {
+        var url = `${body.slice(4)}\n`;
+        archive.addUrlToList(url, () => {
+          res.writeHead(302, httpHelpers.headers);
+          res.end();
+        });
       });
     }
 
