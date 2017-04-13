@@ -40,13 +40,12 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
-  fs.readFile(this.paths.list, 'utf8', (err, data) => {
-    var urls = data.split('\n');
-    urls[urls.length - 1] = url;
-    urls = urls.join('\n');
-    fs.writeFile(this.paths.list, urls);
-    callback();
-  });
+  // fs.readFile(this.paths.list, 'utf8', (err, data) => {
+  //   var urls = data.split('\n');
+  //   urls[urls.length - 1] = url;
+  //   urls = urls.join('\n');
+  // });
+  fs.writeFile(this.paths.list, url, callback());
 };
 
 exports.isUrlArchived = function(url, callback) {
