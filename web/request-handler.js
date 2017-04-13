@@ -15,6 +15,11 @@ exports.handleRequest = function (req, res) {
 
     if (req.method === 'POST') {
       // TODO respond to POST
+      console.log(req.data);
+      archive.addUrlToList(req.send.url, () => {
+        res.writeHead(302, httpHelpers.headers);
+        res.end(data);
+      });
     }
 
   } else if (req.method === 'GET') {

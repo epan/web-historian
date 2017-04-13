@@ -45,13 +45,13 @@ exports.addUrlToList = function(url, callback) {
   //   urls[urls.length - 1] = url;
   //   urls = urls.join('\n');
   // });
-  fs.writeFile(this.paths.list, url, callback());
+  fs.writeFile(this.paths.list, url, callback);
 };
 
 exports.isUrlArchived = function(url, callback) {
   var searchPath = `${this.paths.archivedSites}/${url}`;
   fs.stat(searchPath, (err, stats) => {
-    return stats ? callback(true) : callback(false)
+    return stats ? callback(true) : callback(false);
   });
 };
 
