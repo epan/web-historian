@@ -33,6 +33,7 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
+
   fs.readFile(this.paths.list, 'utf8', function (err, data) {
     var urls = data.split('\n');
     return callback(urls.includes(url));
@@ -57,6 +58,7 @@ exports.isUrlArchived = function(url, callback) {
 
 exports.downloadUrls = function(urls) {
   urls.forEach((url) => {
-    fs.mkdir(`${this.paths.archivedSites}/${url}`, () => {});
+    fs.writeFile(`${this.paths.archivedSites}/${url}`, url, () => {});
+    // fs.mkdir(`${this.paths.archivedSites}/${url}`, () => {});
   });
 };

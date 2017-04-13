@@ -21,7 +21,7 @@ exports.serveAssets = function(res, asset, callback) {
       res.writeHead(404, 'Not Found', {'Content-type': 'text/plain'});
       res.end(`Could not find: ${asset}`);
     } else {
-      res.writeHead(200, this.headers);
+      res.writeHead(200);
       res.end(data);
     }
   });
