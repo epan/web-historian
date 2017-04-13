@@ -7,8 +7,15 @@ const fs = require('fs');
 exports.handleRequest = function (req, res) {
   console.log(`Serving ${req.method} for ${req.url}`);
 
-  if (req.method === 'GET' && req.url === '/') {
-    httpHelpers.serveAssets(res, '/public/index.html');
+  if (req.url === '/') {
+
+    if (req.method === 'GET') {
+      httpHelpers.serveAssets(res, '/public/index.html');
+    }
+
+    if (req.method === 'POST') {
+      // TODO respond to POST
+    }
 
   } else if (req.method === 'GET') {
     httpHelpers.serveAssets(res, `../archives/sites${req.url}`);
