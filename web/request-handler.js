@@ -28,6 +28,11 @@ exports.handleRequest = function (req, res) {
       });
     }
 
+  } else if (req.url === '/styles.css') {
+    if (req.method === 'GET') {
+      httpHelpers.serveAssets(res, `${archive.paths.siteAssets}/styles.css`);
+    }
+
   } else if (req.method === 'GET') {
     console.log('entering the GET FUNCTION ==== ', req.url);
     fs.readFile(`${archive.paths.archivedSites}${req.url}`, 'utf8', (err, data) => {
