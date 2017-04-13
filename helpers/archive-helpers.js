@@ -40,12 +40,11 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
-  var list = this.paths.list;
-  fs.readFile(this.paths.list, 'utf8', function(err, data) {
+  fs.readFile(this.paths.list, 'utf8', (err, data) => {
     var urls = data.split('\n');
     urls[urls.length - 1] = url;
     urls = urls.join('\n');
-    fs.writeFileSync(list, urls);
+    fs.writeFile(this.paths.list, urls);
     callback();
   });
 };
