@@ -50,7 +50,14 @@ exports.addUrlToList = function(url, callback) {
 };
 
 exports.isUrlArchived = function(url, callback) {
+  var searchPath = `${this.paths.archivedSites}/${url}`;
+  fs.stat(searchPath, (err, stats) => {
+    return stats ? callback(true) : callback(false)
+  });
 };
 
 exports.downloadUrls = function(urls) {
+  urls.forEach((url) => {
+    fs.mkdir(`${this.paths.archivedSites}/${url}`, () => {});
+  });
 };
