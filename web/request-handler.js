@@ -10,7 +10,7 @@ exports.handleRequest = function (req, res) {
   if (req.url === '/') {
 
     if (req.method === 'GET') {
-      httpHelpers.serveAssets(res, '/public/index.html');
+      httpHelpers.serveAssets(res, `${archive.paths.siteAssets}/index.html`);
     }
 
     if (req.method === 'POST') {
@@ -28,7 +28,7 @@ exports.handleRequest = function (req, res) {
     }
 
   } else if (req.method === 'GET') {
-    httpHelpers.serveAssets(res, `../archives/sites${req.url}`);
+    httpHelpers.serveAssets(res, `${archive.paths.archivedSites}${req.url}`);
 
   } else {
     res.end(archive.paths.list);
