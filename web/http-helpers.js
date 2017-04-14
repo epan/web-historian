@@ -31,3 +31,11 @@ exports.serveAssets = function(res, asset, callback) {
 
 // As you progress, keep thinking about what helper functions you can put here!
 //
+
+exports.removeLineBreak = function(string) {
+  if (string[string.length] === '\n') {
+    return string.substr(0, string.length - 1);
+  } else {
+    return string;
+  }
+};

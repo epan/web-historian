@@ -20,11 +20,25 @@ exports.handleRequest = function (req, res) {
       })
       .on('end', () => {
         // format the url as text to save to file
-        var url = `${body.slice(4)}\n`;
-        archive.addUrlToList(url, () => {
-          res.writeHead(302, httpHelpers.headers);
-          res.end();
+        var url = `${body.slice(4)}`;
+
+        //check if url in our archive (sites.txt)
+        archive.isUrlArchived(url, (isArchived) => {
+          if (isArchived) {
+            var searchPath = `${archive.paths.archivedSites}/${url}`;
+            httpHelpers.serveAssets(res, searchPath);
+          } else {
+            archive.isUrlInList(url, (isInList) => {
+              if (!isInList) {
+                archive.addUrlToList(`${url}\n`, () => {
+                  res.writeHead(302, httpHelpers.headers);
+                  res.end();
+                });
+              }
+            });
+          }
         });
+
       });
     }
 
@@ -38,7 +52,7 @@ exports.handleRequest = function (req, res) {
     fs.readFile(`${archive.paths.archivedSites}${req.url}`, 'utf8', (err, data) => {
       if (err) {
         res.writeHead(404, 'Not Found', {'Content-type': 'text/plain'});
-        res.end(`Could not find: ${archive.paths.archivedSites}${req.url}`);
+        res.end(`A GET Could not find: ${archive.paths.archivedSites}${req.url}`);
       } else {
         res.writeHead(200);
         res.end(data);

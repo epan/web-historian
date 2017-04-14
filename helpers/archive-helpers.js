@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var htmlFetcher = require('../workers/htmlfetcher');
+var httpHelpers = require('../web/http-helpers');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -35,7 +36,7 @@ exports.readListOfUrls = function(callback) {
 
 exports.isUrlInList = function(url, callback) {
   fs.readFile(this.paths.list, 'utf8', function (err, data) {
-    console.log(`T OR F ${data.includes(url)}`);
+    console.log(`URL IN sites.txt?: ${data.includes(url)}`);
     callback(data.includes(url));
   });
 };
@@ -50,9 +51,10 @@ exports.addUrlToList = function(url, callback) {
 };
 
 exports.isUrlArchived = function(url, callback) {
-  var searchPath = `${this.paths.archivedSites}/${url}`;
+  var searchPath = `${this.paths.archivedSites}/${httpHelpers.removeLineBreak(url)}`;
+  console.log('HELPER URL ARCHIVED SEARCH PATH IS: ', searchPath);
   fs.stat(searchPath, (err, stats) => {
-    stats ? callback(true) : callback(false);
+    !err ? callback(true) : callback(false);
   });
 };
 
@@ -60,4 +62,12 @@ exports.downloadUrls = function(urls) {
   urls.forEach((url) => {
     htmlFetcher.fetch(url);
   });
+};
+
+exports.removeLineBreak = function(string) {
+  if (string[string.length] === '\n') {
+    return string.substr(0, string.length - 1);
+  } else {
+    return string;
+  }
 };
