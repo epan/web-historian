@@ -29,15 +29,14 @@ exports.initialize = function(pathsObj) {
 exports.readListOfUrls = function(callback) {
   fs.readFile(this.paths.list, 'utf8', function (err, data) {
     var urls = data.split('\n');
-    return callback(urls);
+    callback(urls);
   });
 };
 
 exports.isUrlInList = function(url, callback) {
-
   fs.readFile(this.paths.list, 'utf8', function (err, data) {
-    var urls = data.split('\n');
-    return callback(urls.includes(url));
+    console.log(`T OR F ${data.includes(url)}`);
+    callback(data.includes(url));
   });
 };
 
@@ -53,7 +52,7 @@ exports.addUrlToList = function(url, callback) {
 exports.isUrlArchived = function(url, callback) {
   var searchPath = `${this.paths.archivedSites}/${url}`;
   fs.stat(searchPath, (err, stats) => {
-    return stats ? callback(true) : callback(false);
+    stats ? callback(true) : callback(false);
   });
 };
 
